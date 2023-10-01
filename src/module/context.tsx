@@ -1,6 +1,5 @@
 import axios from "axios";
-import { FormikHelpers } from "formik";
-import React, { use } from "react";
+import React from "react";
 import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { MyData, IComment } from "./blog/modal";
@@ -40,22 +39,22 @@ const BlogContext = createContext<IblogValue>({
   fetchBlogs() {
     return null;
   },
-  FetchUserBlog(userId) {},
+  FetchUserBlog(userId) { },
   CreateBlog(values, userId) {
     return null;
   },
   UpdateBlog(values, id) {
     return null as any;
   },
-  deleteBlog(id) {},
-  handleItemLoad(index) {},
-  paginationMore(index) {},
-  paginationReduce(index) {},
-  FilterCategory(category) {},
+  deleteBlog(id) { },
+  handleItemLoad(index) { },
+  paginationMore(index) { },
+  paginationReduce(index) { },
+  FilterCategory(category) { },
   FetchComments(BlogId) {
     return null;
   },
-  CreateComments(BlogId) {},
+  CreateComments(BlogId) { },
 });
 
 export const useBlogContext = () => {
@@ -86,11 +85,13 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
     setItemLoading(newLoadingArray); // update the state with the new loading state array
   };
 
+
+
   const fetchBlogs = () => {
     try {
       axios
         .get(
-          `http://localhost:5000/api/blog?page=${page}&limit=${limit}&category=${category}`
+          `${process.env.NEXT_PUBLIC_API_ROUTE}/blog?page=${page}&limit=${limit}&category=${category}`
         )
         .then((data) => {
           setblogs(data?.data);
@@ -104,7 +105,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
 
   const FetchUserBlog = (userId: string) => {
     try {
-      axios.get(`http://localhost:5000/api/user/${userId}`).then((data) => {
+      axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/user/${userId}`).then((data) => {
         setUserBlog(data?.data);
       });
     } catch (error) {
@@ -115,7 +116,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
   const CreateBlog = async (values: MyData, id: any) => {
     try {
       await axios
-        .post(`http://localhost:5000/api/blog/${id}`, values)
+        .post(`${process.env.NEXT_PUBLIC_API_ROUTE}/blog/${id}`, values)
         .then((data) => {
           setblogs(data?.data);
           toast.success("Post Successfully");
@@ -127,7 +128,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
 
   const FetchComments = (BlogId: string) => {
     try {
-      axios.get(`http://localhost:5000/api/comment/${BlogId}`).then((data) => {
+      axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/comment/${BlogId}`).then((data) => {
         const datas = data?.data;
         if (datas) {
           setComments(datas);
@@ -141,7 +142,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
   const CreateComments = (values: IComment, BlogId: string) => {
     try {
       axios
-        .post(`http://localhost:5000/api/blog/${BlogId}`, values)
+        .post(`${process.env.NEXT_PUBLIC_API_ROUTE}/blog/${BlogId}`, values)
         .then((data) => {
           const datas = data?.data;
           if (datas) {
@@ -160,7 +161,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
   const UpdateBlog = async (values: MyData, id: string) => {
     try {
       const res = axios
-        .put(`http://localhost:5000/api/blog/${id}`, values)
+        .put(`${process.env.NEXT_PUBLIC_API_ROUTE}/blog/${id}`, values)
         .then(() => {
           toast.success("Update Successfully");
         });
@@ -177,7 +178,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
   const deleteBlog = (id: string) => {
     try {
       const res = axios
-        .delete(`http://localhost:5000/api/blog/${id}`)
+        .delete(`${process.env.NEXT_PUBLIC_API_ROUTE}/blog/${id}`)
         .then(() => {
           toast.success("Deleted Successfully");
           setUserBlog(userBlog?.filter((c, i) => c._id !== id));

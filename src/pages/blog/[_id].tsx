@@ -25,7 +25,7 @@ export const getServerSideProps = async ({
   const { _id } = query;
 
 
-  const res = await axios.get(`http://localhost:5000/api/blog/${_id}`);
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/blog/${_id}`);
   const data = res.data.BlogId;
 
   if (!data) {
