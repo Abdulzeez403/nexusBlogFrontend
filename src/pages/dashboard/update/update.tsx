@@ -1,4 +1,3 @@
-import { MyData } from "@/module/dashboard/post/modal";
 import { UpdateScreen } from "@/module/dashboard/update/page";
 import React from "react";
 // interface IProps{

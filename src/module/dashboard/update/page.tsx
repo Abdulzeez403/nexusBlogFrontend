@@ -1,11 +1,8 @@
-import useFetch from "@/components/hooks/fetch";
 import { useBlogContext } from "@/module/context";
 import { DashboardNav } from "@/module/layout/dashboard";
 import { useUserContext } from "@/module/UserContext";
-import { useEffect, useState } from "react";
-import { MyData } from "../post/modal";
+import { useEffect } from "react";
 import { UpdateDetail } from "./detail";
-import { useRouter } from "next/router";
 
 export const UpdateScreen = () => {
   const { user, CurrentUser } = useUserContext();
@@ -14,7 +11,7 @@ export const UpdateScreen = () => {
   useEffect(() => {
     CurrentUser();
     FetchUserBlog(user?.id);
-    console.log(user?.id);
+    console.log(user);
   }, []);
 
   return (

@@ -3,12 +3,11 @@ import useFetch from "@/components/hooks/fetch";
 import { IComment } from "@/module/blog/modal";
 import React from "react";
 import { DashboardNav } from "../../layout/dashboard";
-import ChartPage from "./components/chart";
 import CommentList from "./components/comment";
 import FirstLayout from "./components/firstLayout";
 
 export const DashboardHome = () => {
-  const { apiData } = useFetch({ url: `http://localhost:5000/api/comment/` });
+  const { apiData } = useFetch({ url: `${ process.env.NEXT_PUBLIC_API_ROUTE }api/comment/`});
 
   return (
     <DashboardNav>

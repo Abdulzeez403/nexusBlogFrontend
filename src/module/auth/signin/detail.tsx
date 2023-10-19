@@ -18,7 +18,7 @@ export const SignInDetail = () => {
     setLoading(true);
     console.log(JSON.stringify(user));
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/api/user/Login`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/user/Login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),

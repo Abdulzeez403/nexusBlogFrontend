@@ -1,4 +1,3 @@
-import { Router, useRouter } from "next/router";
 import React, { createContext, useContext, useState } from "react";
 
 interface IUser {

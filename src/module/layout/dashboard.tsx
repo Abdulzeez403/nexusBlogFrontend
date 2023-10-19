@@ -19,7 +19,7 @@ interface IProps {
 export const DashboardNav: React.FC<IProps> = ({ children }) => {
   const [blogData, setBlogData] = useState<IBlog>({} as any);
   useEffect(() => {
-    fetch("http://localhost:5000/api/blog/")
+    fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/blog`)
       .then((res) => res.json())
       .then((data) => {
         setBlogData(data);
@@ -56,7 +56,7 @@ export const DashboardNav: React.FC<IProps> = ({ children }) => {
                 key: "2",
                 icon: (
                   <Link href="/dashboard/post">
-                    <MdPostAdd size={30}/>
+                    <MdPostAdd size={30} />
                   </Link>
                 ),
                 label: "New Post",
@@ -65,7 +65,7 @@ export const DashboardNav: React.FC<IProps> = ({ children }) => {
                 key: "3",
                 icon: (
                   <Link href='/dashboard/update/update'>
-                    <EditOutlined style={{ fontSize: '25px'}} /> 
+                    <EditOutlined style={{ fontSize: '25px' }} />
                   </Link>
                 ),
                 label: "Update Post",

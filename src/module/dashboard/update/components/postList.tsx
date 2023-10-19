@@ -1,8 +1,6 @@
 import ApButton from "@/components/button";
 import { ApHTMLContent } from "@/components/input/TextEditor";
 import AppConfirm from "@/components/modal/comfirm";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { MyData } from "../../post/modal";
 import { useBlogContext } from "@/module/context";
 
@@ -36,7 +34,7 @@ export const PostList: React.FC<IProps> = ({ data, onOpen }) => {
           <ApButton
             className="py-1 px-4 bg-red-500 rounded-md text-white"
             title="Delete"
-            // onClick={deleteBlog}
+          // onClick={deleteBlog}
           />
         </AppConfirm>
       </td>
