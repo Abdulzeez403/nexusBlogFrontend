@@ -2,18 +2,11 @@ import React, { useState } from "react";
 
 import { ApButton } from "@/components/button";
 import { ApTextInput } from "@/components/input";
-import { ApTextEditor } from "@/components/input/TextEditor";
-import axios from "axios";
 import {
-  ErrorMessage,
-  Field,
   Form,
   Formik,
-  FormikHelpers,
-  FormikProps,
 } from "formik";
 import { MyData } from "../../post/modal";
-import { toast } from "react-toastify";
 import { useBlogContext } from "@/module/context";
 
 interface IProps {

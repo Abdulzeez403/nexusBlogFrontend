@@ -17,7 +17,7 @@ export const SignUpDetail = () => {
   ) => {
     try {
       await axios
-        .post("http://localhost:5000/api/user/Register", values)
+        .post(`${process.env.NEXT_PUBLIC_API_ROUTE}/api/user/Register`, values)
         .then(() => {
           toast.success("Registered Successfully");
         })
