@@ -5,22 +5,24 @@ import {
   AiOutlineGooglePlus,
   AiOutlineInstagram,
 } from "react-icons/ai";
-import { BiMenu, BiSearchAlt, BiUserCircle } from "react-icons/bi";
+import { BiMenu, BiUserCircle } from "react-icons/bi";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Link from "next/link";
 import { useUserContext } from "@/module/UserContext";
 import { useBlogContext } from "@/module/context";
-import router, { useRouter } from "next/router";
 
-export const Nav = () => {
+interface IProps {
+  category: string;
+  FilterCategory: (value: any) => void;
+}
+
+export const Nav: React.FC<IProps> = ({ category, FilterCategory }) => {
   const { user, CurrentUser, LogOutUser } = useUserContext();
 
   useEffect(() => {
     CurrentUser();
   }, []);
-
-  const { FilterCategory, category } = useBlogContext();
 
   const [toggle, setToggle] = useState(false);
   const [usertoggle, setUserToggle] = useState(false);

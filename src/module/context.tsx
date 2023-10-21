@@ -80,9 +80,8 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
   const [comments, setComments] = useState<IComment[]>([]);
 
   const handleItemLoad = (index: number): void => {
-    const newLoadingArray = [...itemLoading]; // create a copy of the itemLoading array
-    newLoadingArray[index] = true; // set the loading state for the item at the given index to false
-    setItemLoading(newLoadingArray); // update the state with the new loading state array
+    const newLoadingArray = [...itemLoading];
+    setItemLoading(newLoadingArray);
   };
 
 
