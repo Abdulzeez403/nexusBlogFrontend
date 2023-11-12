@@ -4,4 +4,5 @@ export interface MyData {
   body: string;
   image?: string;
   category?: string;
+  likes?:number
 }

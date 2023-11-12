@@ -5,4 +5,5 @@ export interface IBlog {
   image?: string;
   author?: string;
   createdAt?: string;
+  likes?: number
 }

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from 'axios';
 import React from "react";
 import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
@@ -14,6 +14,7 @@ interface IblogValue {
   category: string;
   page: number;
   limit: number;
+  likes: any,
   handleItemLoad: (index: number) => void;
   fetchBlogs: () => void;
   FetchUserBlog: (userId: string) => void;
@@ -25,10 +26,12 @@ interface IblogValue {
   FilterCategory: (category: any) => void;
   FetchComments: (BlogId: string) => void;
   CreateComments: (values: IComment, BlogId: string) => void;
+  likeAndUnlike: (values: any, userId: string) => void;
 }
 
 const BlogContext = createContext<IblogValue>({
   loading: false,
+  likes: [],
   itemLoading: false,
   blogs: [] || null,
   userBlog: [] || null,
@@ -55,6 +58,7 @@ const BlogContext = createContext<IblogValue>({
     return null;
   },
   CreateComments(BlogId) { },
+  likeAndUnlike(values, userId) { }
 });
 
 export const useBlogContext = () => {
@@ -75,9 +79,10 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [itemLoading, setItemLoading] = useState<boolean[] | any>([]);
   const [page, setPage] = useState<number>(1);
-  const [limit, setLimit] = useState<number>(5);
+  const [limit, setLimit] = useState<number>(8);
   const [category, setCategory] = useState<string>("");
   const [comments, setComments] = useState<IComment[]>([]);
+  const [likes, setLikes] = useState<[]>()
 
   const handleItemLoad = (index: number): void => {
     const newLoadingArray = [...itemLoading];
@@ -187,6 +192,30 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
     }
   };
 
+  const likeAndUnlike = (values: any, userId: string) => {
+    try {
+      const authToken = localStorage.getItem("jwt")
+      const headers: AxiosRequestConfig['headers'] = {
+        Authorization: `Bearer ${authToken}`,
+      };
+
+      const res = axios
+        .put(`${process.env.NEXT_PUBLIC_API_ROUTE}/blog/likes/${userId}`, values, {
+          headers,
+
+        })
+        .then(() => {
+          toast.success("liked!");
+        });
+      const data = res;
+      setLikes(data as any)
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
   const paginationMore = (index: any) => {
     setPage(page + index);
   };
@@ -203,6 +232,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
     <BlogContext.Provider
       value={{
         loading,
+        likes,
         blogs,
         userBlog,
         comments,
@@ -221,6 +251,7 @@ export const BlogContextProvider: React.FC<IProps> = ({ children }) => {
         limit,
         paginationMore,
         paginationReduce,
+        likeAndUnlike
       }}
     >
       {children}

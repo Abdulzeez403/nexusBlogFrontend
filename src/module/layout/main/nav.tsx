@@ -10,7 +10,7 @@ import { MdOutlineArrowDropDown } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Link from "next/link";
 import { useUserContext } from "@/module/UserContext";
-import { useBlogContext } from "@/module/context";
+// import Cookies from "universal-cookie";
 
 interface IProps {
   category: string;
@@ -19,6 +19,13 @@ interface IProps {
 
 export const Nav: React.FC<IProps> = ({ category, FilterCategory }) => {
   const { user, CurrentUser, LogOutUser } = useUserContext();
+
+  // const cookies = new Cookies()
+  const ClearCookies = () => {
+    LogOutUser();
+    // cookies.remove("userId")
+    // cookies.remove("jwt", { path: '/' })
+  }
 
   useEffect(() => {
     CurrentUser();
@@ -105,7 +112,7 @@ export const Nav: React.FC<IProps> = ({ category, FilterCategory }) => {
               <div>
                 <button
                   onClick={() => {
-                    LogOutUser();
+                    ClearCookies()
                   }}
                 >
                   LogOut

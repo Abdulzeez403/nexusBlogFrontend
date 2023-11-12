@@ -9,7 +9,6 @@ interface IUser {
 const UserContext = createContext<IUser>({
   user: null,
   CurrentUser() {
-    return null;
   },
   LogOutUser() {
     return null as any;
@@ -30,11 +29,28 @@ interface IProps {
 export const UserContextProvder: React.FC<IProps> = ({ children }) => {
   const [user, setUser] = useState<any>({} as any);
 
+  // const CurrentUser = async (userId: any) => {
+
+  //   try {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/user/current/${userId}`, {
+  //       method: "GET",
+  //       headers: { "Content-type": "application/json" },
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to fetch user data");
+  //     }
+  //     const userData = await response.json();
+  //     setUser(userData);
+  //   } catch (err) {
+  //     console.error("An error occurred:", err);
+  //   }
+  // };
+
   const CurrentUser = () => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") as any);
     setUser(currentUser);
   };
-
   const LogOutUser = async () => {
     const LogMeOut = localStorage.removeItem("currentUser");
     return LogMeOut;

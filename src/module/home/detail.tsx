@@ -1,10 +1,8 @@
 import ShotImage from "../../../public/Images/shot.jpg";
 import TechImage from "../../../public/Images/weather.jpg";
 import TravelImage from "../../../public/Images/traveling.jpg";
-import ads from "../../../public/Images/ads1.jpg";
 import Image from "next/image";
 import { BlogsTemplate } from "./components/blogs";
-import { IBlog } from "./models";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { useEffect } from "react";
 import { useBlogContext } from "../context";
@@ -22,6 +20,7 @@ export const DetailPage = () => {
     limit,
     category,
   } = useBlogContext();
+
 
   useEffect(() => {
     fetchBlogs();
@@ -92,7 +91,7 @@ export const DetailPage = () => {
         </div>
       </div>
       <div className="flex justify-between gap-2 my-2">
-        <div className="w-[80%]">
+        <div className="">
           <BlogsTemplate
             blog={blogs}
             isLoading={loading}
@@ -101,7 +100,7 @@ export const DetailPage = () => {
           />
         </div>
 
-        <div className="hidden w-[40%]  mx-auto  h-[27rem] sm:hidden md:hidden lg:flex">
+        {/* <div className="hidden w-[40%]  mx-auto  h-[27rem] sm:hidden md:hidden lg:flex">
           <h4 className="text-[1rem] text-red-500 border-1 text-center">
             <div className="h-[20px]">
               <Image
@@ -109,12 +108,12 @@ export const DetailPage = () => {
                 alt="ads/image"
                 width={500}
                 height={500}
-                // sizes="100vw"
-                // object-fit="contain"
+              // sizes="100vw"
+              // object-fit="contain"
               />
             </div>
           </h4>
-        </div>
+        </div> */}
       </div>
       <div className="flex justify-between gap-x-20 my-4 ">
         <div className="flex gap-x-3 px-6 py-3 bg-black items-center">

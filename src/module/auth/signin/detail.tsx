@@ -8,28 +8,50 @@ import React, { useState } from "react";
 import { MdFollowTheSigns } from "react-icons/md";
 import { toast } from "react-toastify";
 import { IAuthSignIn } from "../model";
+import Cookies from "universal-cookie";
 
 export const SignInDetail = () => {
   const router = useRouter();
+  const cookies = new Cookies();
+
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (user: IAuthSignIn) => {
     setLoading(true);
-    console.log(JSON.stringify(user));
+    // try {
+    //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/user/Login`, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(user),
+    //   });
+    //   setLoading(false);
+    //   const data = await res.json();
+    //   cookies.set('userId', data)
+    //   // localStorage.setItem("current", JSON.stringify(data))
+    //   router.push("/");
+    //   toast.success("Login Successfully");
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/user/Login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/user/Login`,
+        user,
+        // { withCredentials: true }
+      );
+
       setLoading(false);
-      const data = await res.json();
+
+      const data = response.data;
+      // cookies.set('userId', JSON.stringify(data));
       localStorage.setItem("currentUser", JSON.stringify(data));
-      router.push("/");
-      toast.success("Login Successfully");
-    } catch (error) {
-      console.log(error);
+      localStorage.setItem("jwt", JSON.stringify(data?.accesstoken));
+      router.push('/');
+      toast.success('Login Successfully');
+    } catch (err) {
+      toast.error('Error Occurred!');
     }
   };
 
